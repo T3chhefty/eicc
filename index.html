@@ -1,455 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="shortcut icon" href="./img/eicclogo.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="shortcut icon" href="./img/eicclogo.png" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Excel International Christian Center (EICC)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FFFFFF; /* Main background color: White */
-            color: #333333; /* Default text color: Dark Gray for readability on white background */
-        }
-        .navbar-fixed {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Keep shadow for fixed header */
-        }
-        /* Removed header scroll effect styles */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff; /* Main background color: White */
+        color: #333333; /* Default text color: Dark Gray for readability on white background */
+      }
+      .navbar-fixed {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Keep shadow for fixed header */
+      }
+      /* Removed header scroll effect styles */
 
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem; /* Rounded corners */
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      /* Hero Section Background Image */
+      #home {
+        background-image: url("./img/banner.jpg"); /* Placeholder image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative; /* Needed for overlay positioning */
+      }
+      #home::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.5
+        ); /* Dark overlay for text readability */
+        z-index: 1; /* Ensure overlay is above background image but below text */
+        border-radius: 0 0 1.5rem 1.5rem; /* Match rounded bottom of section */
+      }
+      #home > .container {
+        position: relative;
+        z-index: 2; /* Ensure text is above the overlay */
+      }
+
+      .carousel-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem; /* Rounded corners */
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .carousel-slide {
+        min-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .carousel-slide img {
+        width: 100%;
+        height: 400px; /* Fixed height for carousel images */
+        object-fit: cover; /* Cover the area, cropping if necessary */
+        border-radius: 1rem; /* Rounded corners for images */
+      }
+      @media (max-width: 768px) {
         .carousel-slide img {
-            width: 100%;
-            height: 400px; /* Fixed height for carousel images */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-radius: 1rem; /* Rounded corners for images */
+          height: 250px; /* Adjust height for mobile */
         }
-        @media (max-width: 768px) {
-            .carousel-slide img {
-                height: 250px; /* Adjust height for mobile */
-            }
-        }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        /* Back to Top Button styles */
-        #back-to-top {
-            display: none; /* Hidden by default */
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            border: none;
-            outline: none;
-            background-color: #A41919; /* Red background */
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 18px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: opacity 0.3s ease-in-out;
-        }
-        #back-to-top:hover {
-            background-color: #8B1515; /* Darker red on hover */
-        }
+      }
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      /* Back to Top Button styles */
+      #back-to-top {
+        display: none; /* Hidden by default */
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #a41919; /* Red background */
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease-in-out;
+      }
+      #back-to-top:hover {
+        background-color: #8b1515; /* Darker red on hover */
+      }
     </style>
-</head>
-<body class="text-gray-800">
-
+  </head>
+  <body class="text-gray-800">
     <!-- Header & Navigation -->
     <header id="main-header" class="p-4 navbar-fixed bg-red-800 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">
-                <!-- Logo Image Placeholder -->
-                <img src="./img/eicclogo.png" alt="EICC Logo" class="h-12 w-auto rounded-xl">
-            </a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#home" class="text-white hover:text-red-200 transition duration-300">Home</a>
-                <a href="#about" class="text-white hover:text-red-200 transition duration-300">About Us</a>
-                <a href="#services" class="text-white hover:text-red-200 transition duration-300">Services</a>
-                <a href="#gallery" class="text-white hover:text-red-200 transition duration-300">Gallery</a>
-                <a href="#contact" class="text-white hover:text-red-200 transition duration-300">Contact</a>
-            </nav>
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-red-800 bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-6 text-xl transform translate-x-full opacity-0 transition-all duration-500 ease-in-out md:hidden">
-            <button id="close-mobile-menu" class="absolute top-4 right-4 text-white focus:outline-none">
-                <i class="fas fa-times text-3xl"></i>
-            </button>
-            <a href="#home" class="text-white hover:text-red-200 transition duration-300" onclick="closeMobileMenu()">Home</a>
-            <a href="#about" class="text-white hover:text-red-200 transition duration-300" onclick="closeMobileMenu()">About Us</a>
-            <a href="#services" class="text-white hover:text-red-200 transition duration-300" onclick="closeMobileMenu()">Services</a>
-            <a href="#gallery" class="text-white hover:text-red-200 transition duration-300" onclick="closeMobileMenu()">Gallery</a>
-            <a href="#contact" class="text-white hover:text-red-200 transition duration-300" onclick="closeMobileMenu()">Contact</a>
-        </div>
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-white">
+          <!-- Logo Image Placeholder -->
+          <img
+            src="./img/eicclogo.png"
+            alt="EICC Logo"
+            class="h-12 w-auto rounded-xl"
+          />
+        </a>
+        <nav class="hidden md:flex space-x-6">
+          <a
+            href="#home"
+            class="text-white hover:text-red-200 transition duration-300"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="text-white hover:text-red-200 transition duration-300"
+            >About Us</a
+          >
+          <a
+            href="#services"
+            class="text-white hover:text-red-200 transition duration-300"
+            >Services</a
+          >
+          <a
+            href="#gallery"
+            class="text-white hover:text-red-200 transition duration-300"
+            >Gallery</a
+          >
+          <a
+            href="#contact"
+            class="text-white hover:text-red-200 transition duration-300"
+            >Contact</a
+          >
+        </nav>
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden text-white focus:outline-none"
+        >
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu Overlay -->
+      <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-red-800 bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-6 text-xl transform translate-x-full opacity-0 transition-all duration-500 ease-in-out md:hidden"
+      >
+        <button
+          id="close-mobile-menu"
+          class="absolute top-4 right-4 text-white focus:outline-none"
+        >
+          <i class="fas fa-times text-3xl"></i>
+        </button>
+        <a
+          href="#home"
+          class="text-white hover:text-red-200 transition duration-300"
+          onclick="closeMobileMenu()"
+          >Home</a
+        >
+        <a
+          href="#about"
+          class="text-white hover:text-red-200 transition duration-300"
+          onclick="closeMobileMenu()"
+          >About Us</a
+        >
+        <a
+          href="#services"
+          class="text-white hover:text-red-200 transition duration-300"
+          onclick="closeMobileMenu()"
+          >Services</a
+        >
+        <a
+          href="#gallery"
+          class="text-white hover:text-red-200 transition duration-300"
+          onclick="closeMobileMenu()"
+          >Gallery</a
+        >
+        <a
+          href="#contact"
+          class="text-white hover:text-red-200 transition duration-300"
+          onclick="closeMobileMenu()"
+          >Contact</a
+        >
+      </div>
     </header>
 
-    <main class="pt-20"> <!-- Padding to account for fixed header -->
+    <main class="pt-20">
+      <!-- Padding to account for fixed header -->
 
-        <!-- Hero Section -->
-        <section id="home" class="relative bg-gradient-to-r from-red-700 to-red-900 text-white py-20 md:py-32 flex items-center justify-center text-center rounded-b-3xl shadow-lg mx-auto max-w-7xl mt-4">
-            <div class="container mx-auto px-6">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
-                    Excel International Christian Center
-                </h1>
-                <p class="text-lg md:text-xl mb-8 opacity-90 animate-fade-in-up">
-                    Raising believers who excel in all aspects of life through God's Word and Spirit.
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="py-20 md:py-32 flex items-center justify-center text-center rounded-b-3xl shadow-lg mx-auto max-w-7xl mt-4"
+      >
+        <div class="container mx-auto px-6">
+          <!-- <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down"> Excel International Christian Center </h1> -->
+          <!-- <p class="text-lg md:text-xl mb-8 opacity-90 animate-fade-in-up">
+            Raising believers who excel in all aspects of life through God's
+            Word and Spirit.</p> -->
+            
+            <!-- <a href="#about"
+            class="bg-white text-red-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out inline-flex items-center group">
+            Learn More
+            <i
+              class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition duration-300"
+            ></i>
+          </a> -->
+        </div>
+      </section>
+
+      <!-- About Us Section -->
+      <section
+        id="about"
+        class="py-16 md:py-24 bg-white rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800"
+      >
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center text-red-800 mb-12">
+            About EICC
+          </h2>
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p class="text-sm leading-relaxed mb-6 text-center">
+                Founded on <span class="font-semibold">July 4, 2021</span>, the
+                Excel International Christian Center (EICC) is a vibrant and
+                growing church committed to nurturing believers who thrive in
+                every facet of life. Our foundation is built upon the powerful
+                combination of God's infallible Word and the transformative
+                presence of the Holy Spirit.
+              </p>
+              <p class="text-sm leading-relaxed mb-6 text-center">
+                We are located at
+                <span class="font-semibold"
+                  >#3 Ukpibo Street, behind PPL Umutu, Ukwuani LGA, Delta State,
+                  Nigeria</span
+                >. We extend a warm and heartfelt invitation to everyone to join
+                our fellowship and experience the tangible presence of God in a
+                community where faith flourishes.
+              </p>
+            </div>
+            <div class="flex justify-center items-center">
+              <img
+                src="./img/churchlogo.jpg"
+                alt="EICC Community"
+                class="rounded-xl shadow-lg transform hover:scale-105 transition duration-300 object-cover"
+              />
+            </div>
+          </div>
+
+          <div class="mt-16 text-center ">
+            <h3 class="text-3xl font-bold text-red-800 mb-8">
+              Meet Our Senior Pastor
+            </h3>
+            <div
+              class="flex flex-col md:flex-row items-center justify-center gap-8"
+            >
+              <img
+                src="./img/pst.jpg"
+                alt="Pastor Mike Edmond Otali"
+                class="rounded-full w-48 h-48 object-fit shadow-xl border-2 border-red-700"
+              />
+              <div class="text-left max-w-xl">
+                <h4 class="text-sm font-semibold text-red-700 mb-2 text-center">
+                  Pastor Mike Edmond Otali
+                </h4>
+                <p class="text-sm leading-relaxed text-center">
+                  Our esteemed Senior Pastor, General Overseer, and Founder,
+                  Pastor Mike Edmond Otali, is a passionate servant of God. He
+                  is dedicated to teaching the unadulterated truth of the Gospel
+                  and empowering individuals to discover and fulfill their
+                  divine purpose. His ministry is characterized by a strong
+                  emphasis on fervent prayer, the transformative power of the
+                  Word, and fostering a loving community where faith can grow
+                  and people can experience God's miraculous touch.
                 </p>
-                <a href="#about" class="bg-white text-red-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out inline-flex items-center group">
-                    Learn More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition duration-300"></i>
-                </a>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- About Us Section -->
-        <section id="about" class="py-16 md:py-24 bg-white rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800">
-            <div class="container mx-auto">
-                <h2 class="text-4xl font-bold text-center text-red-800 mb-12">About EICC</h2>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <p class="text-lg leading-relaxed mb-6">
-                            Founded on <span class="font-semibold">July 4, 2021</span>, the Excel International Christian Center (EICC) is a vibrant and growing church committed to nurturing believers who thrive in every facet of life. Our foundation is built upon the powerful combination of God's infallible Word and the transformative presence of the Holy Spirit.
-                        </p>
-                        <p class="text-lg leading-relaxed mb-6">
-                            We are located at <span class="font-semibold">#3 Ukpibo Street, behind PPL Umutu, Ukwuani LGA, Delta State, Nigeria</span>. We extend a warm and heartfelt invitation to everyone to join our fellowship and experience the tangible presence of God in a community where faith flourishes.
-                        </p>
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <img src="./img/churchlogo.jpg" alt="EICC Community" class="rounded-xl shadow-lg transform hover:scale-105 transition duration-300 object-cover">
-                    </div>
-                </div>
-
-                <div class="mt-16 text-center">
-                    <h3 class="text-3xl font-bold text-red-800 mb-8">Meet Our Senior Pastor</h3>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-                        <img src="./img/pst.jpg" alt="Pastor Mike Edmond Otali" class="rounded-full w-48 h-48 object-fit shadow-xl border-2 border-red-700">
-                        <div class="text-left max-w-xl">
-                            <h4 class="text-2xl font-semibold text-red-700 mb-2">Pastor Mike Edmond Otali</h4>
-                            <p class="text-lg leading-relaxed">
-                                Our esteemed Senior Pastor, General Overseer, and Founder, Pastor Mike Edmond Otali, is a passionate servant of God. He is dedicated to teaching the unadulterated truth of the Gospel and empowering individuals to discover and fulfill their divine purpose. His ministry is characterized by a strong emphasis on fervent prayer, the transformative power of the Word, and fostering a loving community where faith can grow and people can experience God's miraculous touch.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+      <!-- Services Section -->
+      <section
+        id="services"
+        class="py-16 md:py-24 bg-red-50 rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800"
+      >
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center text-red-800 mb-12">
+            Our Weekly Activities
+          </h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Sunday Service -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-church text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Sunday Service
+              </h3>
+              <p class="text-lg text-gray-700">
+                Join us for a powerful time of worship, the Word, and
+                fellowship.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">8:00 AM</p>
             </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="py-16 md:py-24 bg-red-50 rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800">
-            <div class="container mx-auto">
-                <h2 class="text-4xl font-bold text-center text-red-800 mb-12">Our Weekly Activities</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Sunday Service -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-church text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Sunday Service</h3>
-                        <p class="text-lg text-gray-700">Join us for a powerful time of worship, the Word, and fellowship.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">8:00 AM</p>
-                    </div>
-                    <!-- Wednesday Fresh Fire Service -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-fire text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Wednesday Fresh Fire Service</h3>
-                        <p class="text-lg text-gray-700">Experience a refreshing encounter with the Holy Spirit.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">5:00 PM</p>
-                    </div>
-                    <!-- Challengers Squared (Prayer Warriors) -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-hands-praying text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Challengers Squared</h3>
-                        <p class="text-lg text-gray-700">Intercessory prayer for our community and beyond.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">Every Friday</p>
-                    </div>
-                    <!-- Choir Department -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-music text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Choir Department</h3>
-                        <p class="text-lg text-gray-700">Leading us in heartfelt praise and worship.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">Tuesdays & Saturdays</p>
-                    </div>
-                    <!-- Sanctuary Cleaners -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-broom text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Sanctuary Cleaners</h3>
-                        <p class="text-lg text-gray-700">Ensuring a conducive and welcoming environment.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">Every Saturday</p>
-                    </div>
-                    <!-- Covenant Hour of Prayers -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                        <i class="fas fa-sun text-5xl text-red-600 mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Covenant Hour of Prayers</h3>
-                        <p class="text-lg text-gray-700">Start your week with divine alignment and breakthroughs.</p>
-                        <p class="text-red-600 font-bold mt-4 text-xl">Monday, 6:00 AM</p>
-                    </div>
-                </div>
+            <!-- Wednesday Fresh Fire Service -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-fire text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Wednesday Fresh Fire Service
+              </h3>
+              <p class="text-lg text-gray-700">
+                Experience a refreshing encounter with the Holy Spirit.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">5:00 PM</p>
             </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="gallery" class="py-16 md:py-24 bg-white rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800">
-            <div class="container mx-auto">
-                <h2 class="text-4xl font-bold text-center text-red-800 mb-12">Our Gallery</h2>
-                <div class="carousel-container w-full max-w-4xl mx-auto">
-                    <div class="carousel-track" id="carousel-track">
-                        <!-- Placeholder images for the carousel -->
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+1" alt="EICC Image 1"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+2" alt="EICC Image 2"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+3" alt="EICC Image 3"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+4" alt="EICC Image 4"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+5" alt="EICC Image 5"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+6" alt="EICC Image 6"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+7" alt="EICC Image 7"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+8" alt="EICC Image 8"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+9" alt="EICC Image 9"></div>
-                        <div class="carousel-slide"><img src="https://placehold.co/1200x400/A41919/ffffff?text=EICC+Image+10" alt="EICC Image 10"></div>
-                    </div>
-                    <button id="prev-slide" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 focus:outline-none transition duration-300">
-                        <i class="fas fa-chevron-left text-red-700"></i>
-                    </button>
-                    <button id="next-slide" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 focus:outline-none transition duration-300">
-                        <i class="fas fa-chevron-right text-red-700"></i>
-                    </button>
-                </div>
+            <!-- Challengers Squared (Prayer Warriors) -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-hands-praying text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Challengers Squared
+              </h3>
+              <p class="text-lg text-gray-700">
+                Intercessory prayer for our community and beyond.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">Every Friday</p>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24 bg-red-50 rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800">
-            <div class="container mx-auto">
-                <h2 class="text-4xl font-bold text-center text-red-800 mb-12">Get in Touch</h2>
-                <div class="flex flex-col gap-12 items-center">
-                    <!-- Contact Form Card -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg w-full text-gray-800">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-6 text-center flex items-center justify-center"><i class="fas fa-paper-plane mr-3 text-red-600"></i> Send Us a Message</h3>
-                        <form action="#" method="POST" class="space-y-6">
-                            <div>
-                                <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Name</label>
-                                <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg" placeholder="Your Name" required>
-                            </div>
-                            <div>
-                                <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
-                                <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg" placeholder="your.email@example.com" required>
-                            </div>
-                            <div>
-                                <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject</label>
-                                <input type="text" id="subject" name="subject" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg" placeholder="Subject of your message" required>
-                            </div>
-                            <div>
-                                <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg" placeholder="Your message..." required></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-full text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
-                                    Send Message <i class="fas fa-paper-plane ml-2"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Church Address Card -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg w-full text-gray-800 text-center mt-8">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center justify-center"><i class="fas fa-map-marker-alt mr-3 text-red-600"></i> Our Location</h3>
-                        <p class="text-lg leading-relaxed">#3 Ukpibo Street, behind PPL Umutu, Ukwuani LGA, Delta State, Nigeria.</p>
-                        <p class="text-lg leading-relaxed mt-2"><i class="fas fa-phone mr-2 text-red-600"></i> +2348066998654</p>
-                    </div>
-
-                    <!-- Google Map -->
-                    <div class="w-full mt-8">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-6 text-center flex items-center justify-center"><i class="fas fa-map mr-3 text-red-600"></i> Find Us on Map</h3>
-                        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200">
-                            <!-- Google Map Embed - Centered on Umutu, Delta State -->
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.56931754407!2d6.26252935!3d5.73238615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10411a0b3b4d4b1f%3A0x280e81f7e3c1a32a!2sUmutu%2C%20Delta%20State%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
-                                width="100%"
-                                height="450"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
+            <!-- Choir Department -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-music text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Choir Department
+              </h3>
+              <p class="text-lg text-gray-700">
+                Leading us in heartfelt praise and worship.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">
+                Tuesdays & Saturdays
+              </p>
             </div>
-        </section>
+            <!-- Sanctuary Cleaners -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-broom text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Sanctuary Cleaners
+              </h3>
+              <p class="text-lg text-gray-700">
+                Ensuring a conducive and welcoming environment.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">Every Saturday</p>
+            </div>
+            <!-- Covenant Hour of Prayers -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 flex flex-col items-center text-center"
+            >
+              <i class="fas fa-sun text-5xl text-red-600 mb-4"></i>
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Covenant Hour of Prayers
+              </h3>
+              <p class="text-lg text-gray-700">
+                Start your week with divine alignment and breakthroughs.
+              </p>
+              <p class="text-red-600 font-bold mt-4 text-xl">Monday, 6:00 AM</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Gallery Section -->
+      <section
+        id="gallery"
+        class="py-16 md:py-24 bg-white rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800"
+      >
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center text-red-800 mb-12">
+            Our Gallery
+          </h2>
+          <div class="carousel-container w-full max-w-4xl mx-auto">
+            <div class="carousel-track" id="carousel-track">
+              <!-- Placeholder images for the carousel -->
+              <div class="carousel-slide">
+                <img
+                  src="./img/pp.jpg"
+                  alt="EICC Image 1"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p11.jpg"
+                  alt="EICC Image 2"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p12.jpg"
+                  alt="EICC Image 3"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p13.jpg"
+                  alt="EICC Image 4"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p14.jpg"
+                  alt="EICC Image 5"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p17.jpg"
+                  alt="EICC Image 6"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p3.jpg"
+                  alt="EICC Image 7"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p2.jpg"
+                  alt="EICC Image 8"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p5.jpg"
+                  alt="EICC Image 9"
+                />
+              </div>
+              <div class="carousel-slide">
+                <img
+                  src="./img/p8.jpg"
+                  alt="EICC Image 10"
+                />
+              </div>
+            </div>
+            <button
+              id="prev-slide"
+              class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 focus:outline-none transition duration-300"
+            >
+              <i class="fas fa-chevron-left text-red-700"></i>
+            </button>
+            <button
+              id="next-slide"
+              class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 focus:outline-none transition duration-300"
+            >
+              <i class="fas fa-chevron-right text-red-700"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section
+        id="contact"
+        class="py-16 md:py-24 bg-red-50 rounded-xl shadow-md mx-auto max-w-7xl mt-8 px-6 text-gray-800"
+      >
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center text-red-800 mb-12">
+            Get in Touch
+          </h2>
+          <div class="flex flex-col gap-12 items-center">
+            <!-- Contact Form Card -->
+            <div class="bg-white p-8 rounded-xl shadow-lg w-full text-gray-800">
+              <h3
+                class="text-2xl font-semibold text-gray-900 mb-6 text-center flex items-center justify-center"
+              >
+                <i class="fas fa-paper-plane mr-3 text-red-600"></i> Send Us a
+                Message
+              </h3>
+              <form action="#" method="POST" class="space-y-6">
+                <div>
+                  <label
+                    for="name"
+                    class="block text-lg font-medium text-gray-700 mb-2"
+                    >Name</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg"
+                    placeholder="Your Name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    for="email"
+                    class="block text-lg font-medium text-gray-700 mb-2"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg"
+                    placeholder="your.email@example.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    for="subject"
+                    class="block text-lg font-medium text-gray-700 mb-2"
+                    >Subject</label
+                  >
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg"
+                    placeholder="Subject of your message"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    for="message"
+                    class="block text-lg font-medium text-gray-700 mb-2"
+                    >Message</label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-lg"
+                    placeholder="Your message..."
+                    required
+                  ></textarea>
+                </div>
+                <div class="text-center">
+                  <button
+                    type="submit"
+                    class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-full text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300"
+                  >
+                    Send Message <i class="fas fa-paper-plane ml-2"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Church Address Card -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg w-full text-gray-800 text-center mt-8"
+            >
+              <h3
+                class="text-2xl font-semibold text-gray-900 mb-6 flex items-center justify-center"
+              >
+                <i class="fas fa-map-marker-alt mr-3 text-red-600"></i> Our
+                Location
+              </h3>
+              <p class="text-lg leading-relaxed">
+                #3 Ukpibo Street, behind PPL Umutu, Ukwuani LGA, Delta State,
+                Nigeria.
+              </p>
+              <p class="text-lg leading-relaxed mt-2">
+                <i class="fas fa-phone mr-2 text-red-600"></i> +2348066998654
+              </p>
+            </div>
+
+            <!-- Google Map -->
+            <div class="w-full mt-8">
+              <h3
+                class="text-2xl font-semibold text-gray-900 mb-6 text-center flex items-center justify-center"
+              >
+                <i class="fas fa-map mr-3 text-red-600"></i> Find Us on Map
+              </h3>
+              <div
+                class="rounded-xl overflow-hidden shadow-lg border border-gray-200"
+              >
+                <!-- Google Map Embed - Centered on Umutu, Delta State -->
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.56931754407!2d6.26252935!3d5.73238615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10411a0b3b4d4b1f%3A0x280e81f7e3c1a32a!2sUmutu%2C%20Delta%20State%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
+                  width="100%"
+                  height="450"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-red-800 text-white py-8 mt-8 rounded-t-3xl shadow-inner">
-        <div class="container mx-auto text-center px-6">
-            <p>&copy; <span id="current-year"></span> Excel International Christian Center (EICC). All rights reserved.</p>
-            <div class="flex justify-center space-x-4 mt-4">
-                <a href="https://www.facebook.com/ExcelInternationalChristianCenter" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300 transition duration-300">
-                    <i class="fab fa-facebook-square text-2xl"></i>
-                </a>
-                <!-- Add more social media icons if needed -->
-            </div>
+      <div class="container mx-auto text-center px-6">
+        <p>
+          &copy; <span id="current-year"></span> Excel International Christian
+          Center (EICC). All rights reserved.
+        </p>
+        <div class="flex justify-center space-x-4 mt-4">
+          <a
+            href="https://www.facebook.com/ExcelInternationalChristianCenter"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white hover:text-gray-300 transition duration-300"
+          >
+            <i class="fab fa-facebook-square text-2xl"></i>
+          </a>
+          <!-- Add more social media icons if needed -->
         </div>
+      </div>
     </footer>
 
     <!-- Back to Top Button -->
     <button id="back-to-top" title="Go to top">
-        <i class="fas fa-arrow-up"></i>
+      <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a'); // Get all links in the mobile menu
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMobileMenuButton =
+        document.getElementById("close-mobile-menu");
+      const mobileMenuLinks = mobileMenu.querySelectorAll("a"); // Get all links in the mobile menu
 
-        // Function to open the mobile menu
-        function openMobileMenu() {
-            mobileMenu.classList.remove('translate-x-full', 'opacity-0');
-            mobileMenu.classList.add('translate-x-0', 'opacity-100');
+      // Function to open the mobile menu
+      function openMobileMenu() {
+        mobileMenu.classList.remove("translate-x-full", "opacity-0");
+        mobileMenu.classList.add("translate-x-0", "opacity-100");
+      }
+
+      // Function to close the mobile menu
+      function closeMobileMenu() {
+        mobileMenu.classList.remove("translate-x-0", "opacity-100");
+        mobileMenu.classList.add("translate-x-full", "opacity-0");
+      }
+
+      mobileMenuButton.addEventListener("click", openMobileMenu);
+      closeMobileMenuButton.addEventListener("click", closeMobileMenu);
+
+      // Close mobile menu when a link is clicked
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      // Smooth Scrolling for Navigation Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Auto-animated Carousel Gallery
+      const carouselTrack = document.getElementById("carousel-track");
+      const slides = Array.from(carouselTrack.children);
+      const nextButton = document.getElementById("next-slide");
+      const prevButton = document.getElementById("prev-slide");
+      let slideWidth = slides[0].getBoundingClientRect().width; // Initialize slideWidth
+      let currentIndex = 0;
+      let autoSlideInterval;
+
+      // Function to set slide position
+      const setSlidePosition = () => {
+        carouselTrack.style.transform =
+          "translateX(-" + slideWidth * currentIndex + "px)";
+      };
+
+      // Function to move to next slide
+      const moveToNextSlide = () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        setSlidePosition();
+      };
+
+      // Function to move to previous slide
+      const moveToPrevSlide = () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        setSlidePosition();
+      };
+
+      // Event listeners for manual navigation
+      nextButton.addEventListener("click", () => {
+        moveToNextSlide();
+        resetAutoSlide();
+      });
+
+      prevButton.addEventListener("click", () => {
+        moveToPrevSlide();
+        resetAutoSlide();
+      });
+
+      // Auto-slide functionality
+      const startAutoSlide = () => {
+        autoSlideInterval = setInterval(moveToNextSlide, 4000); // Change slide every 4 seconds
+      };
+
+      const resetAutoSlide = () => {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+      };
+
+      // Back to Top Button Logic
+      const backToTopButton = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+          // Show button after scrolling 200px
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
         }
+      });
 
-        // Function to close the mobile menu
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('translate-x-0', 'opacity-100');
-            mobileMenu.classList.add('translate-x-full', 'opacity-0');
-        }
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
 
-        mobileMenuButton.addEventListener('click', openMobileMenu);
-        closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+      // Initialize carousel and other elements on window load
+      window.onload = function () {
+        // Update slideWidth on load to ensure correct initial positioning
+        slideWidth = slides[0].getBoundingClientRect().width;
+        setSlidePosition(); // Set initial position
+        startAutoSlide(); // Start auto-sliding
 
-        // Close mobile menu when a link is clicked
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
+        // Update footer copyright year
+        document.getElementById("current-year").textContent =
+          new Date().getFullYear();
+      };
 
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Auto-animated Carousel Gallery
-        const carouselTrack = document.getElementById('carousel-track');
-        const slides = Array.from(carouselTrack.children);
-        const nextButton = document.getElementById('next-slide');
-        const prevButton = document.getElementById('prev-slide');
-        let slideWidth = slides[0].getBoundingClientRect().width; // Initialize slideWidth
-        let currentIndex = 0;
-        let autoSlideInterval;
-
-        // Function to set slide position
-        const setSlidePosition = () => {
-            carouselTrack.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
-        };
-
-        // Function to move to next slide
-        const moveToNextSlide = () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            setSlidePosition();
-        };
-
-        // Function to move to previous slide
-        const moveToPrevSlide = () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            setSlidePosition();
-        };
-
-        // Event listeners for manual navigation
-        nextButton.addEventListener('click', () => {
-            moveToNextSlide();
-            resetAutoSlide();
-        });
-
-        prevButton.addEventListener('click', () => {
-            moveToPrevSlide();
-            resetAutoSlide();
-        });
-
-        // Auto-slide functionality
-        const startAutoSlide = () => {
-            autoSlideInterval = setInterval(moveToNextSlide, 4000); // Change slide every 4 seconds
-        };
-
-        const resetAutoSlide = () => {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        };
-
-        // Back to Top Button Logic
-        const backToTopButton = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) { // Show button after scrolling 200px
-                backToTopButton.style.display = 'block';
-            } else {
-                backToTopButton.style.display = 'none';
-            }
-        });
-
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Initialize carousel and other elements on window load
-        window.onload = function() {
-            // Update slideWidth on load to ensure correct initial positioning
-            slideWidth = slides[0].getBoundingClientRect().width;
-            setSlidePosition(); // Set initial position
-            startAutoSlide(); // Start auto-sliding
-
-            // Update footer copyright year
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-        };
-
-        // Recalculate slide width on window resize
-        window.addEventListener('resize', () => {
-            slideWidth = slides[0].getBoundingClientRect().width; // Update slideWidth on resize
-            carouselTrack.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
-        });
+      // Recalculate slide width on window resize
+      window.addEventListener("resize", () => {
+        slideWidth = slides[0].getBoundingClientRect().width; // Update slideWidth on resize
+        carouselTrack.style.transform =
+          "translateX(-" + slideWidth * currentIndex + "px)";
+      });
     </script>
-</body>
+  </body>
 </html>
